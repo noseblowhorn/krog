@@ -14,6 +14,11 @@ class Tile(val printableEntity: WorldPrintableEntity,
                         TextColor.ANSI.BLACK,
                         TextColor.ANSI.BLACK,
                         SGR.BOLD)), true, true)
+        val wallTile = Tile(WorldPrintableEntity(
+                TextCharacter('#',
+                        TextColor.ANSI.BLACK,
+                        TextColor.ANSI.BLACK,
+                        SGR.BOLD)), false, false)
     }
 
 }

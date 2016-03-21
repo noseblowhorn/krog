@@ -4,7 +4,7 @@ import com.googlecode.lanterna.SGR
 import com.googlecode.lanterna.TextCharacter
 import com.googlecode.lanterna.TextColor
 
-object PlayerCharacter {
+class PlayerCharacter {
     public val printableEntity: WorldPrintableEntity
 
     var x: Int
@@ -20,5 +20,7 @@ object PlayerCharacter {
                 SGR.BOLD))
     }
 
-
+    companion object PlayerCharacterHolder {
+        var instance = PlayerCharacter()
+    }
 }

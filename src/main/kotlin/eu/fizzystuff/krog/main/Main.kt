@@ -14,8 +14,8 @@ fun main(args: Array<String>) {
     screen.startScreen()
 
     WorldState.currentDungeonLevel = DungeonLevel(terminal.terminalSize.columns, terminal.terminalSize.rows)
-    PlayerCharacter.x = 10
-    PlayerCharacter.y = 10
+    PlayerCharacter.instance.x = 10
+    PlayerCharacter.instance.y = 10
 
     val scene = MainScreenScene()
 
