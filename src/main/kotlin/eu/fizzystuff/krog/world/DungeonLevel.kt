@@ -4,8 +4,8 @@ import com.google.common.base.Preconditions
 import com.googlecode.lanterna.TextCharacter
 
 class DungeonLevel(width: Int, height: Int) {
-    private val width: Int
-    private val height: Int
+    public val width: Int
+    public val height: Int
 
     private val tiles: Array<Array<Tile>>
 
@@ -15,7 +15,7 @@ class DungeonLevel(width: Int, height: Int) {
 
         val dummyEntity = WorldPrintableEntity(TextCharacter.DEFAULT_CHARACTER)
 
-        tiles = Array(width, {i -> Array(height, {j -> floorTile}) })
+        tiles = Array(width, {i -> Array(height, {j -> Tile.Tiles.floorTile}) })
     }
 
     public fun getTileAt(x: Int, y: Int): Tile {
@@ -34,5 +34,9 @@ class DungeonLevel(width: Int, height: Int) {
         Preconditions.checkState(y < height)
 
         tiles[x][y] = tile
+    }
+
+    public fun getPrintableEntityAt(x: Int, y: Int): WorldPrintableEntity {
+        return tiles[x][y].printableEntity
     }
 }
