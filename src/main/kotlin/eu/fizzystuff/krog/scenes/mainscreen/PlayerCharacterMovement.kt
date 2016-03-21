@@ -18,7 +18,7 @@ class PlayerCharacterMovement : LogicNode {
     val WEST_MOVE_KEYS = ImmutableSet.of(KeyStroke('a', false, false),
             KeyStroke(KeyType.ArrowLeft),
             KeyStroke('4', false, false))
-    val EAST_MOVE_KEYS = ImmutableSet.of(KeyStroke('a', false, false),
+    val EAST_MOVE_KEYS = ImmutableSet.of(KeyStroke('d', false, false),
             KeyStroke(KeyType.ArrowRight),
             KeyStroke('6', false, false))
     val NORTHWEST_MOVE_KEYS = ImmutableSet.of(KeyStroke('7', false, false))
