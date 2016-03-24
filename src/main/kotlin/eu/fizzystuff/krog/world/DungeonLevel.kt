@@ -10,6 +10,7 @@ class DungeonLevel(width: Int, height: Int) {
     private val tiles: Array<Array<Tile>>
     val seen: Array<Array<Boolean>>
     val visible: Array<Array<Boolean>>
+    val actors: MutableList<Actor>
 
     init {
         this.width = width
@@ -18,6 +19,7 @@ class DungeonLevel(width: Int, height: Int) {
         tiles = Array(width, {i -> Array(height, {j -> Tile.Tiles.floorTile}) })
         seen = Array(width, {i -> Array(height, {j -> false}) })
         visible = Array(width, {i -> Array(height, {j -> false}) })
+        actors = mutableListOf()
     }
 
     public fun getTileAt(x: Int, y: Int): Tile {
@@ -40,6 +42,21 @@ class DungeonLevel(width: Int, height: Int) {
 
     public fun getPrintableEntityAt(x: Int, y: Int): WorldPrintableEntity {
         return tiles[x][y].printableEntity
+    }
+
+    public fun setVisible(x: Int, y: Int, isVisible: Boolean) {
+        visible[x][y] = isVisible
+        if (isVisible) {
+            seen[x][y] = isVisible
+        }
+    }
+
+    public fun addActor(actor: Actor) {
+        actors.add(actor)
+    }
+
+    public fun getActorAt(x: Int, y: Int): Actor? {
+        return actors.filter { actor -> actor.x == x && actor.y == y }.firstOrNull()
     }
 
     companion object DungeonLevels {

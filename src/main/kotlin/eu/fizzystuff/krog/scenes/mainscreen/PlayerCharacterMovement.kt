@@ -28,7 +28,7 @@ class PlayerCharacterMovement : LogicNode {
 
 
     override fun process(keyStroke: KeyStroke) {
-        val pc = PlayerCharacter.instance
+        val pc = PlayerCharacter.instance.actor
         
         val x = pc.x
         val y = pc.y

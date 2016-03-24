@@ -5,19 +5,13 @@ import com.googlecode.lanterna.TextCharacter
 import com.googlecode.lanterna.TextColor
 
 class PlayerCharacter {
-    public val printableEntity: WorldPrintableEntity
-
-    var x: Int
-    var y: Int
+    public val actor: Actor
 
     init {
-        x = 0
-        y = 0
-
-        printableEntity = WorldPrintableEntity(TextCharacter('@',
+        actor = Actor(WorldPrintableEntity(TextCharacter('@',
                 TextColor.ANSI.BLUE,
                 TextColor.ANSI.BLACK,
-                SGR.BOLD))
+                SGR.BOLD)), 0, 0)
     }
 
     companion object PlayerCharacterHolder {

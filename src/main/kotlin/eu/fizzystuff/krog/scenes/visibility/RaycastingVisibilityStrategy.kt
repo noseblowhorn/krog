@@ -2,18 +2,16 @@ package eu.fizzystuff.krog.scenes.visibility
 
 import com.google.common.collect.ImmutableSet
 import eu.fizzystuff.krog.world.DungeonLevel
-import org.apache.commons.math3.geometry.euclidean.twod.Vector2D
 
 /**
  * Hey, let's be sloppy and inefficient! Here, we can calculate a path between the origin point and each and every
  * tile at the edges of the level. And see if something sticks between.
  */
 class RaycastingVisibilityStrategy : VisibilityStrategy {
-    override fun calculateVisibility(dungeonLevel: DungeonLevel, originX: Int, originY: Int, maxDistance: Int) {
-        flagDungeonAsNotVisible(dungeonLevel)
-        dungeonLevel.seen[originX][originY] = true
-        dungeonLevel.visible[originX][originY] = true
+    override fun calculateVisibility(dungeonLevel: DungeonLevel, originX: Int, originY: Int, maxDistance: Int): Array<Array<Boolean>> {
         val edgePointSet = buildEdgePointSet(dungeonLevel)
+        val visible = Array(dungeonLevel.width, {i -> Array(dungeonLevel.height, {j -> false}) })
+        visible[originX][originY] = true
 
         for (edgePoint in edgePointSet) {
             var radius = 0.0;
@@ -31,47 +29,27 @@ class RaycastingVisibilityStrategy : VisibilityStrategy {
 
                 val tile = dungeonLevel.getTileAt(x, y)
                 if (tile.translucent) {
-                    dungeonLevel.seen[x][y] = true
-                    dungeonLevel.visible[x][y] = true
+                    visible[x][y] = true
                 } else {
                     // mark this tile as seen and bail - we can't see anything beyond it
-                    dungeonLevel.seen[x][y] = true
-                    dungeonLevel.visible[x][y] = true
+                    visible[x][y] = true
                     break
                 }
 
             } while (radius.toInt() <= maxDistance)
         }
+
+        return visible
     }
 
     private fun pointWithinBounds(dungeonLevel: DungeonLevel, x: Int, y: Int): Boolean {
         return x >= 0 && y >= 0 && x < dungeonLevel.width && y < dungeonLevel.height
     }
 
-    private fun flagDungeonAsNotVisible(dungeonLevel: DungeonLevel) {
-        for (i in 0..dungeonLevel.width - 1) {
-            for (j in 0..dungeonLevel.height - 1) {
-                dungeonLevel.visible[i][j] = false
-            }
-        }
-    }
-
-    private fun buildEdgePointSet(dungeonLevel: DungeonLevel): ImmutableSet<Pair<Int, Int>> {
-        val edgePointSetBuilder = ImmutableSet.builder<Pair<Int, Int>>();
-
-        for (i in 0..dungeonLevel.width - 1) {
-            edgePointSetBuilder.add(Pair(i, 0))
-        }
-        for (j in 0..dungeonLevel.height - 1) {
-            edgePointSetBuilder.add(Pair(0, j))
-        }
-        for (i in 0..dungeonLevel.width - 1) {
-            edgePointSetBuilder.add(Pair(i, dungeonLevel.height - 1))
-        }
-        for (j in 0..dungeonLevel.height - 1) {
-            edgePointSetBuilder.add(Pair(dungeonLevel.width - 1, j))
-        }
-
-        return edgePointSetBuilder.build()
-    }
+    private fun buildEdgePointSet(dungeonLevel: DungeonLevel): Set<Pair<Int, Int>> =
+        setOf((0..dungeonLevel.width - 1).map({x -> Pair(x, 0)}),
+            (0..dungeonLevel.width - 1).map({x -> Pair(x, dungeonLevel.height - 1)}),
+            (0..dungeonLevel.height - 1).map({x -> Pair(0, x)}),
+            (0..dungeonLevel.height - 1).map({x -> Pair(dungeonLevel.width - 1, x)}))
+            .flatten().toSet()
 }
