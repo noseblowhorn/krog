@@ -11,6 +11,9 @@ class DungeonLevel(width: Int, height: Int) {
     val seen: Array<Array<Boolean>>
     val visible: Array<Array<Boolean>>
     val actors: MutableList<Actor>
+    val npcs: MutableList<Npc>
+
+    val transitionPoints: MutableList<DungeonTransitionPoint> = arrayListOf()
 
     init {
         this.width = width
@@ -20,6 +23,7 @@ class DungeonLevel(width: Int, height: Int) {
         seen = Array(width, {i -> Array(height, {j -> false}) })
         visible = Array(width, {i -> Array(height, {j -> false}) })
         actors = mutableListOf()
+        npcs = mutableListOf()
     }
 
     public fun getTileAt(x: Int, y: Int): Tile {
@@ -57,6 +61,14 @@ class DungeonLevel(width: Int, height: Int) {
 
     public fun getActorAt(x: Int, y: Int): Actor? {
         return actors.filter { actor -> actor.x == x && actor.y == y }.firstOrNull()
+    }
+
+    public fun fillWithTile(tile: Tile) {
+        for (x in 0..width - 1) {
+            for (y in 0..height - 1) {
+                setTileAt(x, y, tile)
+            }
+        }
     }
 
     companion object DungeonLevels {

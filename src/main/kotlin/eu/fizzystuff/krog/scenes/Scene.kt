@@ -7,4 +7,5 @@ interface Scene {
     fun init()
     fun draw(screen: AbstractScreen)
     fun acceptInput(input: KeyStroke)
+    fun tick()
 }

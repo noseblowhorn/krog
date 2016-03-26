@@ -26,7 +26,6 @@ apply plugin: 'application'
 mainClassName = 'eu.fizzystuff.krog.main.MainKt'
 
 dependencies {
-    compile "org.jetbrains.kotlin:kotlin-stdlib:1.0.0"
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile "com.google.inject:guice:4.0"
     compile "com.google.guava:guava:19.0"

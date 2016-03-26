@@ -8,6 +8,7 @@ import eu.fizzystuff.krog.scenes.visibility.VisibilityStrategy
 import eu.fizzystuff.krog.world.PlayerCharacter
 import eu.fizzystuff.krog.world.WorldState
 import eu.fizzystuff.krog.world.dungeongenerators.EmptyCircularCaveGenerator
+import eu.fizzystuff.krog.world.dungeongenerators.RandomWalkCaveGenerator
 
 fun main(args: Array<String>) {
 
@@ -17,12 +18,15 @@ fun main(args: Array<String>) {
 
     val injector = Guice.createInjector(KrogModule());
 
-    val generator = injector.getInstance(EmptyCircularCaveGenerator::class.java)
+//    val generator = injector.getInstance(EmptyCircularCaveGenerator::class.java)
+    val generator = injector.getInstance(RandomWalkCaveGenerator::class.java)
 
     WorldState.currentDungeonLevel = generator.generate(terminal.terminalSize.columns, terminal.terminalSize.rows)
     WorldState.currentDungeonLevel.addActor(PlayerCharacter.instance.actor)
-    PlayerCharacter.instance.actor.x = terminal.terminalSize.columns / 2
-    PlayerCharacter.instance.actor.y = terminal.terminalSize.rows / 2
+
+    PlayerCharacter.instance.actor.x = WorldState.currentDungeonLevel.transitionPoints.filter { x -> x.targetLevel == null }.first().x
+    PlayerCharacter.instance.actor.y = WorldState.currentDungeonLevel.transitionPoints.filter { x -> x.targetLevel == null }.first().y
+    PlayerCharacter.instance.actor.speed = 100
 
     val scene = MainScreenScene()
 
@@ -30,6 +34,7 @@ fun main(args: Array<String>) {
 
     while(true) {
         scene.draw(screen)
+        scene.tick()
         scene.acceptInput(terminal.readInput())
     }
 }

@@ -1,13 +1,16 @@
-package eu.fizzystuff.krog.scenes.mainscreen
+package eu.fizzystuff.krog.scenes.mainscreen.input
 
 import com.google.common.collect.ImmutableSet
 import com.googlecode.lanterna.input.KeyStroke
 import com.googlecode.lanterna.input.KeyType
+import eu.fizzystuff.krog.scenes.InputNode
 import eu.fizzystuff.krog.scenes.LogicNode
 import eu.fizzystuff.krog.world.PlayerCharacter
 import eu.fizzystuff.krog.world.WorldState
 
-class PlayerCharacterMovement : LogicNode {
+class PlayerCharacterMovement : InputNode {
+
+    private val MOVE_AP_COST = 400
 
     val NORTH_MOVE_KEYS = ImmutableSet.of(KeyStroke('w', false, false),
             KeyStroke(KeyType.ArrowUp),
@@ -53,8 +56,12 @@ class PlayerCharacterMovement : LogicNode {
         } else if (keyStroke in NORTHEAST_MOVE_KEYS && canMoveTo(x + 1, y - 1)) {
             pc.x += 1
             pc.y -= 1
+        } else {
+            return
         }
 
+        pc.actionCost = MOVE_AP_COST
+        pc.actionPoints -= MOVE_AP_COST
     }
 
     private fun canMoveTo(x: Int, y: Int): Boolean {

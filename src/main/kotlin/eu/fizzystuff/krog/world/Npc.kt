@@ -1,7 +1,10 @@
 package eu.fizzystuff.krog.world
 
-class Npc {
-//    public var printableEntity: WorldPrintableEntity
+class Npc(actor: Actor) {
+    public val actor: Actor
 
+    init {
+        this.actor = actor
+    }
 
 }

@@ -2,6 +2,7 @@ package eu.fizzystuff.krog.scenes.mainscreen
 
 import com.googlecode.lanterna.input.KeyStroke
 import com.googlecode.lanterna.input.KeyType
+import eu.fizzystuff.krog.scenes.mainscreen.input.PlayerCharacterMovement
 import eu.fizzystuff.krog.world.DungeonLevel
 import eu.fizzystuff.krog.world.PlayerCharacter
 import eu.fizzystuff.krog.world.Tile

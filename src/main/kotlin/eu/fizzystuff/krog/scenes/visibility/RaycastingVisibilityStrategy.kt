@@ -1,6 +1,5 @@
 package eu.fizzystuff.krog.scenes.visibility
 
-import com.google.common.collect.ImmutableSet
 import eu.fizzystuff.krog.world.DungeonLevel
 
 /**
