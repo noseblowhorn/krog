@@ -4,6 +4,7 @@ import com.google.inject.Inject
 import eu.fizzystuff.krog.world.DungeonLevel
 import eu.fizzystuff.krog.world.DungeonTransitionPoint
 import eu.fizzystuff.krog.world.Tile
+import eu.fizzystuff.krog.world.dungeongenerators.objects.DefaultObjectGenerator
 import org.apache.commons.math3.random.RandomGenerator
 
 class RandomWalkCaveGenerator @Inject constructor(random: RandomGenerator) : DungeonLevelGenerator {
@@ -30,6 +31,8 @@ class RandomWalkCaveGenerator @Inject constructor(random: RandomGenerator) : Dun
             x += getNextStepX(x, width)
             y += getNextStepY(y, height)
         }
+
+        DefaultObjectGenerator(random).generate(level)
 
         return level
     }

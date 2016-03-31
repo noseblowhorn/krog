@@ -1,14 +1,16 @@
 package eu.fizzystuff.krog.world
 
-class Actor(entity: WorldPrintableEntity, initialx: Int, initialy: Int) {
-    public var printableEntity: WorldPrintableEntity
+abstract class Actor(entity: WorldPrintableEntity, initialx: Int, initialy: Int) {
+    var printableEntity: WorldPrintableEntity
 
-    public var x: Int
-    public var y: Int
+    var x: Int
+    var y: Int
 
-    public var actionPoints: Int
-    public var actionCost: Int
-    public var speed: Int
+    var actionPoints: Int
+    var actionCost: Int
+    var speed: Int
+
+    var ai: (actor: Actor) -> Unit
 
     init {
         printableEntity = entity
@@ -17,5 +19,10 @@ class Actor(entity: WorldPrintableEntity, initialx: Int, initialy: Int) {
         actionPoints = 0
         actionCost = 0
         speed = 100
+        ai = { x -> ; }
+    }
+
+    fun processAi() {
+        ai(this)
     }
 }

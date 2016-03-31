@@ -21,12 +21,12 @@ fun main(args: Array<String>) {
 //    val generator = injector.getInstance(EmptyCircularCaveGenerator::class.java)
     val generator = injector.getInstance(RandomWalkCaveGenerator::class.java)
 
-    WorldState.currentDungeonLevel = generator.generate(terminal.terminalSize.columns, terminal.terminalSize.rows)
-    WorldState.currentDungeonLevel.addActor(PlayerCharacter.instance.actor)
+    WorldState.instance.currentDungeonLevel = generator.generate(80, 22)
+    WorldState.instance.currentDungeonLevel.addActor(PlayerCharacter.instance)
 
-    PlayerCharacter.instance.actor.x = WorldState.currentDungeonLevel.transitionPoints.filter { x -> x.targetLevel == null }.first().x
-    PlayerCharacter.instance.actor.y = WorldState.currentDungeonLevel.transitionPoints.filter { x -> x.targetLevel == null }.first().y
-    PlayerCharacter.instance.actor.speed = 100
+    PlayerCharacter.instance.x = WorldState.instance.currentDungeonLevel.transitionPoints.filter { x -> x.targetLevel == null }.first().x
+    PlayerCharacter.instance.y = WorldState.instance.currentDungeonLevel.transitionPoints.filter { x -> x.targetLevel == null }.first().y
+    PlayerCharacter.instance.speed = 100
 
     val scene = MainScreenScene()
 

@@ -6,7 +6,7 @@ import eu.fizzystuff.krog.world.WorldState
 
 class AddActionPoints : LogicNode {
     override fun process() {
-        WorldState.currentDungeonLevel.actors.map { x ->
+        WorldState.instance.currentDungeonLevel.actors.map { x ->
 
             // a speed of 0 is allowed e.g. for the purpose of a paralysis effect
             // be aware that if the player's speed is set to 0 without a timed effect to end it

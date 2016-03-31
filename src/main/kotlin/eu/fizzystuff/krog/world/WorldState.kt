@@ -1,12 +1,14 @@
 package eu.fizzystuff.krog.world
 
-object WorldState {
+class WorldState {
 
-    public var currentDungeonLevel: DungeonLevel
+    var currentDungeonLevel: DungeonLevel
 
     init {
         currentDungeonLevel = DungeonLevel(0, 0)
     }
 
-
+    companion object WorldStateHolder {
+        var instance = WorldState()
+    }
 }

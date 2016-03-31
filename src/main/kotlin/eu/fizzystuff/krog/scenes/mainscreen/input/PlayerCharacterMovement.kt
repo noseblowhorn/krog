@@ -31,7 +31,7 @@ class PlayerCharacterMovement : InputNode {
 
 
     override fun process(keyStroke: KeyStroke) {
-        val pc = PlayerCharacter.instance.actor
+        val pc = PlayerCharacter.instance
         
         val x = pc.x
         val y = pc.y
@@ -65,9 +65,13 @@ class PlayerCharacterMovement : InputNode {
     }
 
     private fun canMoveTo(x: Int, y: Int): Boolean {
-        val dungeonLevel = WorldState.currentDungeonLevel
+        val dungeonLevel = WorldState.instance.currentDungeonLevel
 
         if (x < 0 || y < 0 || x >= dungeonLevel.width || y >= dungeonLevel.height) {
+            return false
+        }
+
+        if (dungeonLevel.actors.any { actor -> actor.x == x && actor.y == y }) {
             return false
         }
 
