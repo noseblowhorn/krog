@@ -1,6 +1,6 @@
 package eu.fizzystuff.krog.scenes.visibility
 
-import eu.fizzystuff.krog.world.DungeonLevel
+import eu.fizzystuff.krog.model.DungeonLevel
 
 /**
  * Hey, let's be sloppy and inefficient! Here, we can calculate a path between the origin point and each and every

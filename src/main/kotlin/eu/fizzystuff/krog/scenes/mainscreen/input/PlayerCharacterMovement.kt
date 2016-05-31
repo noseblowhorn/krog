@@ -5,8 +5,8 @@ import com.googlecode.lanterna.input.KeyStroke
 import com.googlecode.lanterna.input.KeyType
 import eu.fizzystuff.krog.scenes.InputNode
 import eu.fizzystuff.krog.scenes.LogicNode
-import eu.fizzystuff.krog.world.PlayerCharacter
-import eu.fizzystuff.krog.world.WorldState
+import eu.fizzystuff.krog.model.PlayerCharacter
+import eu.fizzystuff.krog.model.WorldState
 
 class PlayerCharacterMovement : InputNode {
 

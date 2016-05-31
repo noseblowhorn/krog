@@ -2,7 +2,7 @@ package eu.fizzystuff.krog.scenes.mainscreen
 
 import com.google.common.base.Preconditions
 import eu.fizzystuff.krog.scenes.LogicNode
-import eu.fizzystuff.krog.world.WorldState
+import eu.fizzystuff.krog.model.WorldState
 
 class AddActionPoints : LogicNode {
     override fun process() {

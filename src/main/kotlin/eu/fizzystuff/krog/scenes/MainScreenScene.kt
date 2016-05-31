@@ -1,16 +1,33 @@
 package eu.fizzystuff.krog.scenes
 
+import com.google.inject.Inject
 import com.googlecode.lanterna.input.KeyStroke
 import com.googlecode.lanterna.screen.AbstractScreen
+import com.googlecode.lanterna.terminal.Terminal
 import eu.fizzystuff.krog.scenes.mainscreen.AddActionPoints
 import eu.fizzystuff.krog.scenes.mainscreen.NpcAI
+import eu.fizzystuff.krog.scenes.aspects.MainMapDrawingAspect
 import eu.fizzystuff.krog.scenes.mainscreen.input.ExitGame
 import eu.fizzystuff.krog.scenes.mainscreen.input.PlayerCharacterMovement
 import eu.fizzystuff.krog.scenes.visibility.RaycastingVisibilityStrategy
-import eu.fizzystuff.krog.world.PlayerCharacter
-import eu.fizzystuff.krog.world.WorldState
+import eu.fizzystuff.krog.model.PlayerCharacter
+import eu.fizzystuff.krog.model.WorldState
 
-class MainScreenScene : Scene {
+class MainScreenScene public @Inject constructor(val screen: AbstractScreen,
+                                                 val terminal: Terminal) : Scene() {
+
+    override fun run(): SceneTransition? {
+        while(true) {
+            draw(screen)
+            acceptInput(terminal.readInput())
+            tick()
+        }
+    }
+
+    override fun destroy() {
+        throw UnsupportedOperationException()
+    }
+
     val inputNodes: List<InputNode> = listOf(PlayerCharacterMovement(), ExitGame())
     val logicNodes: List<LogicNode> = listOf(AddActionPoints(), NpcAI())
 
@@ -18,18 +35,20 @@ class MainScreenScene : Scene {
         calculateVisibility()
     }
 
-    override fun draw(screen: AbstractScreen) {
-        MainMapWindow().draw(screen, 0, 1)
+    fun draw(screen: AbstractScreen) {
+        MainMapDrawingAspect().draw(screen, 0, 1)
     }
 
-    override fun acceptInput(input: KeyStroke) {
+    fun acceptInput(input: KeyStroke): SceneTransition? {
 
         inputNodes.map { x -> x.process(input) }
 
         calculateVisibility()
+
+        return null
     }
 
-    override fun tick() {
+    fun tick() {
         while (true) {
             logicNodes.map { x -> x.process() }
 

@@ -1,11 +1,11 @@
-package eu.fizzystuff.krog.world.dungeongenerators.objects
+package eu.fizzystuff.krog.model.dungeongenerators.objects
 
 import com.google.inject.Inject
 import com.googlecode.lanterna.TextCharacter
 import com.googlecode.lanterna.TextColor
-import eu.fizzystuff.krog.world.DungeonLevel
-import eu.fizzystuff.krog.world.Npc
-import eu.fizzystuff.krog.world.WorldPrintableEntity
+import eu.fizzystuff.krog.model.DungeonLevel
+import eu.fizzystuff.krog.model.Npc
+import eu.fizzystuff.krog.model.WorldPrintableEntity
 import org.apache.commons.math3.random.RandomGenerator
 
 class DefaultObjectGenerator @Inject constructor(random: RandomGenerator): ObjectGenerator {

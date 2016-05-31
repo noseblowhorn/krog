@@ -5,20 +5,15 @@ import com.googlecode.lanterna.screen.TerminalScreen
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory
 import eu.fizzystuff.krog.scenes.MainScreenScene
 import eu.fizzystuff.krog.scenes.visibility.VisibilityStrategy
-import eu.fizzystuff.krog.world.PlayerCharacter
-import eu.fizzystuff.krog.world.WorldState
-import eu.fizzystuff.krog.world.dungeongenerators.EmptyCircularCaveGenerator
-import eu.fizzystuff.krog.world.dungeongenerators.RandomWalkCaveGenerator
+import eu.fizzystuff.krog.model.PlayerCharacter
+import eu.fizzystuff.krog.model.WorldState
+import eu.fizzystuff.krog.model.dungeongenerators.EmptyCircularCaveGenerator
+import eu.fizzystuff.krog.model.dungeongenerators.RandomWalkCaveGenerator
+import eu.fizzystuff.krog.scenes.SceneTransitionAutomaton
 
 fun main(args: Array<String>) {
-
-    val terminal = DefaultTerminalFactory().createTerminal();
-    val screen = TerminalScreen(terminal)
-    screen.startScreen()
-
     val injector = Guice.createInjector(KrogModule());
 
-//    val generator = injector.getInstance(EmptyCircularCaveGenerator::class.java)
     val generator = injector.getInstance(RandomWalkCaveGenerator::class.java)
 
     WorldState.instance.currentDungeonLevel = generator.generate(80, 22)
@@ -28,13 +23,6 @@ fun main(args: Array<String>) {
     PlayerCharacter.instance.y = WorldState.instance.currentDungeonLevel.transitionPoints.filter { x -> x.targetLevel == null }.first().y
     PlayerCharacter.instance.speed = 100
 
-    val scene = MainScreenScene()
-
-    scene.init()
-
-    while(true) {
-        scene.draw(screen)
-        scene.tick()
-        scene.acceptInput(terminal.readInput())
-    }
+    val automaton = SceneTransitionAutomaton(MainScreenScene::class.java, injector)
+    automaton.start()
 }

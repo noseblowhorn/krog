@@ -1,4 +1,4 @@
-package eu.fizzystuff.krog.world
+package eu.fizzystuff.krog.model
 
 class WorldState {
 

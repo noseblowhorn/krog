@@ -1,4 +1,4 @@
-package eu.fizzystuff.krog.world
+package eu.fizzystuff.krog.model
 
 import com.googlecode.lanterna.SGR
 import com.googlecode.lanterna.TextCharacter

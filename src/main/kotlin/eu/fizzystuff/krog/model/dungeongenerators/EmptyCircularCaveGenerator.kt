@@ -1,8 +1,8 @@
-package eu.fizzystuff.krog.world.dungeongenerators
+package eu.fizzystuff.krog.model.dungeongenerators
 
 import com.google.inject.Inject
-import eu.fizzystuff.krog.world.DungeonLevel
-import eu.fizzystuff.krog.world.Tile
+import eu.fizzystuff.krog.model.DungeonLevel
+import eu.fizzystuff.krog.model.Tile
 import org.apache.commons.math3.ml.distance.EuclideanDistance
 import org.apache.commons.math3.random.RandomGenerator
 

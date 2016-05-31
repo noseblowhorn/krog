@@ -1,7 +1,7 @@
 package eu.fizzystuff.krog.scenes.mainscreen
 
 import eu.fizzystuff.krog.scenes.LogicNode
-import eu.fizzystuff.krog.world.WorldState
+import eu.fizzystuff.krog.model.WorldState
 
 class NpcAI : LogicNode {
     override fun process() {

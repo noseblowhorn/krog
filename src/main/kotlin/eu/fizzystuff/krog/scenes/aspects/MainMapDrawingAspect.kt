@@ -1,11 +1,12 @@
-package eu.fizzystuff.krog.scenes
+package eu.fizzystuff.krog.scenes.aspects
 
 import com.googlecode.lanterna.TextCharacter
 import com.googlecode.lanterna.TextColor
 import com.googlecode.lanterna.screen.AbstractScreen
-import eu.fizzystuff.krog.world.WorldState
+import eu.fizzystuff.krog.scenes.aspects.DrawingAspect
+import eu.fizzystuff.krog.model.WorldState
 
-class MainMapWindow : Window {
+class MainMapDrawingAspect : DrawingAspect {
     override fun draw(screen: AbstractScreen, x: Int, y: Int) {
         val dungeonLevel = WorldState.instance.currentDungeonLevel
 

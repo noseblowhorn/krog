@@ -3,10 +3,10 @@ package eu.fizzystuff.krog.scenes.mainscreen
 import com.googlecode.lanterna.input.KeyStroke
 import com.googlecode.lanterna.input.KeyType
 import eu.fizzystuff.krog.scenes.mainscreen.input.PlayerCharacterMovement
-import eu.fizzystuff.krog.world.DungeonLevel
-import eu.fizzystuff.krog.world.PlayerCharacter
-import eu.fizzystuff.krog.world.Tile
-import eu.fizzystuff.krog.world.WorldState
+import eu.fizzystuff.krog.model.DungeonLevel
+import eu.fizzystuff.krog.model.PlayerCharacter
+import eu.fizzystuff.krog.model.Tile
+import eu.fizzystuff.krog.model.WorldState
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test

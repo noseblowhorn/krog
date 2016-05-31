@@ -1,4 +1,4 @@
-package eu.fizzystuff.krog.world
+package eu.fizzystuff.krog.model
 
 abstract class Actor(entity: WorldPrintableEntity, initialx: Int, initialy: Int) {
     var printableEntity: WorldPrintableEntity

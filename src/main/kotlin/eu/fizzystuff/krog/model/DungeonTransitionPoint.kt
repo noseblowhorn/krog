@@ -1,4 +1,4 @@
-package eu.fizzystuff.krog.world
+package eu.fizzystuff.krog.model
 
 class DungeonTransitionPoint(x: Int, y: Int, targetLevel: DungeonLevel?) {
     val x: Int = x
