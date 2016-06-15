@@ -23,7 +23,8 @@ class MainScreenScene public @Inject constructor(val injector: Injector,
                                                  val mainMapDrawingComponent: MainMapDrawingComponent,
                                                  val messageBufferDrawingComponent: MessageBufferDrawingComponent,
                                                  val terminal: Terminal,
-                                                 val messageBuffer: MessageBuffer) : Scene() {
+                                                 val messageBuffer: MessageBuffer,
+                                                 val screen: AbstractScreen) : Scene() {
 
     override fun run(): SceneTransition? {
         while(true) {
@@ -54,8 +55,10 @@ class MainScreenScene public @Inject constructor(val injector: Injector,
     }
 
     fun draw() {
-        messageBufferDrawingComponent.draw(0, 0, ImmutableList.of(messageBuffer.poll(), messageBuffer.poll()))
-        mainMapDrawingComponent.draw(0, 1)
+        messageBufferDrawingComponent.draw(0, 0, ImmutableList.of(messageBuffer.poll(80), messageBuffer.poll(80)))
+        mainMapDrawingComponent.draw(0, 2)
+
+        screen.refresh()
     }
 
     fun acceptInput(input: KeyStroke): SceneTransition? {

@@ -12,7 +12,7 @@ class MessageBuffer {
         messages.add(message)
     }
 
-    fun poll(): String {
+    fun poll(len: Int): String {
         val listBuilder = ImmutableList.builder<String>()
 
         while (listBuilder.build().fold(0, { totalLength, str -> totalLength + str.length + 1 }) < 80 && messages.size > 0) {
@@ -21,11 +21,11 @@ class MessageBuffer {
         }
 
         val oversizedOutput = Joiner.on(" ").join(listBuilder.build())
-        if (oversizedOutput.length > 80) {
-            messages.add(0, oversizedOutput.substring(80))
+        if (oversizedOutput.length > len) {
+            messages.add(0, oversizedOutput.substring(len))
         }
 
-        return oversizedOutput.substring(0, Math.min(oversizedOutput.length, 80))
+        return oversizedOutput.substring(0, Math.min(oversizedOutput.length, len))
     }
 
     fun size(): Int {

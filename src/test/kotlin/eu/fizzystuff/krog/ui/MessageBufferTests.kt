@@ -10,7 +10,7 @@ class MessageBufferTests {
     fun testPollWhenEmpty() {
         val messageBuffer = MessageBuffer()
 
-        Assert.assertEquals("", messageBuffer.poll())
+        Assert.assertEquals("", messageBuffer.poll(80))
     }
 
     @Test
@@ -26,7 +26,7 @@ class MessageBufferTests {
         messageBuffer.addMessage("chuje")
         messageBuffer.addMessage("muje")
 
-        Assert.assertEquals("chuje muje", messageBuffer.poll())
+        Assert.assertEquals("chuje muje", messageBuffer.poll(80))
     }
 
     @Test
@@ -35,8 +35,8 @@ class MessageBufferTests {
         messageBuffer.addMessage(Joiner.on("").join((1..50).map { "a" }))
         messageBuffer.addMessage(Joiner.on("").join((1..50).map { "b" }))
 
-        Assert.assertEquals("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa bbbbbbbbbbbbbbbbbbbbbbbbbbbbb", messageBuffer.poll())
-        Assert.assertEquals("bbbbbbbbbbbbbbbbbbbbb", messageBuffer.poll())
+        Assert.assertEquals("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa bbbbbbbbbbbbbbbbbbbbbbbbbbbbb", messageBuffer.poll(80))
+        Assert.assertEquals("bbbbbbbbbbbbbbbbbbbbb", messageBuffer.poll(80))
     }
 
     @Test

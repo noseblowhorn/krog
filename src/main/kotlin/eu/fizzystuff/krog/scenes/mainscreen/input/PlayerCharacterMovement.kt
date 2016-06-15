@@ -80,7 +80,13 @@ class PlayerCharacterMovement public @Inject constructor(val messageBuffer: Mess
         val tile = dungeonLevel.getTileAt(x, y)
 
         if (!tile.traversable) {
-            messageBuffer.addMessage("You flurp into the brumpy goblak")
+            messageBuffer.addMessage("You flurp into the brumpy goblak.")
+            messageBuffer.addMessage("You flurp into the brumpy goblak.")
+            messageBuffer.addMessage("You flurp into the brumpy goblak.")
+            messageBuffer.addMessage("You flurp into the brumpy goblak.")
+            messageBuffer.addMessage("You flurp into the brumpy goblak.")
+            messageBuffer.addMessage("You flurp into the brumpy goblak.")
+
         }
 
         return tile.traversable

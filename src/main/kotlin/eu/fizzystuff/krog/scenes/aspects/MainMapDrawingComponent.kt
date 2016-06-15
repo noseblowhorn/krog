@@ -25,7 +25,5 @@ class MainMapDrawingComponent public @Inject constructor(val screen: AbstractScr
                 }
             }
         }
-
-        screen.refresh()
     }
 }
