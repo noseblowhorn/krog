@@ -7,15 +7,19 @@ import eu.fizzystuff.krog.model.DungeonLevel
 import eu.fizzystuff.krog.model.PlayerCharacter
 import eu.fizzystuff.krog.model.Tile
 import eu.fizzystuff.krog.model.WorldState
+import eu.fizzystuff.krog.ui.MessageBuffer
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 
 class PlayerCharacterMovementTests {
 
+
+    val messageBuffer: MessageBuffer = MessageBuffer()
+
     @Before
     fun setUp() {
-        WorldState.currentDungeonLevel = DungeonLevel(3, 3)
+        WorldState.instance.currentDungeonLevel = DungeonLevel(3, 3)
         PlayerCharacter.instance = PlayerCharacter()
         PlayerCharacter.instance.x = 1
         PlayerCharacter.instance.y = 1
@@ -23,12 +27,12 @@ class PlayerCharacterMovementTests {
 
     @Test
     fun testMoveNorth() {
-        PlayerCharacterMovement().process(KeyStroke(KeyType.ArrowUp))
+        PlayerCharacterMovement(messageBuffer).process(KeyStroke(KeyType.ArrowUp))
 
         Assert.assertEquals(0, PlayerCharacter.instance.y)
         Assert.assertEquals(1, PlayerCharacter.instance.x)
 
-        PlayerCharacterMovement().process(KeyStroke(KeyType.ArrowUp))
+        PlayerCharacterMovement(messageBuffer).process(KeyStroke(KeyType.ArrowUp))
 
         Assert.assertEquals(0, PlayerCharacter.instance.y)
         Assert.assertEquals(1, PlayerCharacter.instance.x)
@@ -36,12 +40,12 @@ class PlayerCharacterMovementTests {
 
     @Test
     fun testMoveSouth() {
-        PlayerCharacterMovement().process(KeyStroke(KeyType.ArrowDown))
+        PlayerCharacterMovement(messageBuffer).process(KeyStroke(KeyType.ArrowDown))
 
         Assert.assertEquals(2, PlayerCharacter.instance.y)
         Assert.assertEquals(1, PlayerCharacter.instance.x)
 
-        PlayerCharacterMovement().process(KeyStroke(KeyType.ArrowDown))
+        PlayerCharacterMovement(messageBuffer).process(KeyStroke(KeyType.ArrowDown))
 
         Assert.assertEquals(2, PlayerCharacter.instance.y)
         Assert.assertEquals(1, PlayerCharacter.instance.x)
@@ -49,12 +53,12 @@ class PlayerCharacterMovementTests {
 
     @Test
     fun testMoveWest() {
-        PlayerCharacterMovement().process(KeyStroke(KeyType.ArrowLeft))
+        PlayerCharacterMovement(messageBuffer).process(KeyStroke(KeyType.ArrowLeft))
 
         Assert.assertEquals(1, PlayerCharacter.instance.y)
         Assert.assertEquals(0, PlayerCharacter.instance.x)
 
-        PlayerCharacterMovement().process(KeyStroke(KeyType.ArrowLeft))
+        PlayerCharacterMovement(messageBuffer).process(KeyStroke(KeyType.ArrowLeft))
 
         Assert.assertEquals(1, PlayerCharacter.instance.y)
         Assert.assertEquals(0, PlayerCharacter.instance.x)
@@ -62,12 +66,12 @@ class PlayerCharacterMovementTests {
 
     @Test
     fun testMoveEast() {
-        PlayerCharacterMovement().process(KeyStroke(KeyType.ArrowRight))
+        PlayerCharacterMovement(messageBuffer).process(KeyStroke(KeyType.ArrowRight))
 
         Assert.assertEquals(1, PlayerCharacter.instance.y)
         Assert.assertEquals(2, PlayerCharacter.instance.x)
 
-        PlayerCharacterMovement().process(KeyStroke(KeyType.ArrowRight))
+        PlayerCharacterMovement(messageBuffer).process(KeyStroke(KeyType.ArrowRight))
 
         Assert.assertEquals(1, PlayerCharacter.instance.y)
         Assert.assertEquals(2, PlayerCharacter.instance.x)
@@ -75,12 +79,12 @@ class PlayerCharacterMovementTests {
 
     @Test
     fun testMoveNorthwest() {
-        PlayerCharacterMovement().process(KeyStroke('7', false, false))
+        PlayerCharacterMovement(messageBuffer).process(KeyStroke('7', false, false))
 
         Assert.assertEquals(0, PlayerCharacter.instance.y)
         Assert.assertEquals(0, PlayerCharacter.instance.x)
 
-        PlayerCharacterMovement().process(KeyStroke('7', false, false))
+        PlayerCharacterMovement(messageBuffer).process(KeyStroke('7', false, false))
 
         Assert.assertEquals(0, PlayerCharacter.instance.y)
         Assert.assertEquals(0, PlayerCharacter.instance.x)
@@ -88,12 +92,12 @@ class PlayerCharacterMovementTests {
 
     @Test
     fun testMoveNortheast() {
-        PlayerCharacterMovement().process(KeyStroke('9', false, false))
+        PlayerCharacterMovement(messageBuffer).process(KeyStroke('9', false, false))
 
         Assert.assertEquals(0, PlayerCharacter.instance.y)
         Assert.assertEquals(2, PlayerCharacter.instance.x)
 
-        PlayerCharacterMovement().process(KeyStroke('9', false, false))
+        PlayerCharacterMovement(messageBuffer).process(KeyStroke('9', false, false))
 
         Assert.assertEquals(0, PlayerCharacter.instance.y)
         Assert.assertEquals(2, PlayerCharacter.instance.x)
@@ -101,12 +105,12 @@ class PlayerCharacterMovementTests {
 
     @Test
     fun testMoveSouthwest() {
-        PlayerCharacterMovement().process(KeyStroke('1', false, false))
+        PlayerCharacterMovement(messageBuffer).process(KeyStroke('1', false, false))
 
         Assert.assertEquals(2, PlayerCharacter.instance.y)
         Assert.assertEquals(0, PlayerCharacter.instance.x)
 
-        PlayerCharacterMovement().process(KeyStroke('1', false, false))
+        PlayerCharacterMovement(messageBuffer).process(KeyStroke('1', false, false))
 
         Assert.assertEquals(2, PlayerCharacter.instance.y)
         Assert.assertEquals(0, PlayerCharacter.instance.x)
@@ -114,12 +118,12 @@ class PlayerCharacterMovementTests {
 
     @Test
     fun testMoveSoutheast() {
-        PlayerCharacterMovement().process(KeyStroke('3', false, false))
+        PlayerCharacterMovement(messageBuffer).process(KeyStroke('3', false, false))
 
         Assert.assertEquals(2, PlayerCharacter.instance.y)
         Assert.assertEquals(2, PlayerCharacter.instance.x)
 
-        PlayerCharacterMovement().process(KeyStroke('3', false, false))
+        PlayerCharacterMovement(messageBuffer).process(KeyStroke('3', false, false))
 
         Assert.assertEquals(2, PlayerCharacter.instance.y)
         Assert.assertEquals(2, PlayerCharacter.instance.x)
@@ -127,9 +131,9 @@ class PlayerCharacterMovementTests {
 
     @Test
     fun testMoveThroughObstruction() {
-        WorldState.currentDungeonLevel.setTileAt(1, 0, Tile.wallTile)
+        WorldState.instance.currentDungeonLevel.setTileAt(1, 0, Tile.wallTile)
 
-        PlayerCharacterMovement().process(KeyStroke(KeyType.ArrowUp))
+        PlayerCharacterMovement(messageBuffer).process(KeyStroke(KeyType.ArrowUp))
 
         Assert.assertEquals(1, PlayerCharacter.instance.y)
         Assert.assertEquals(1, PlayerCharacter.instance.x)

@@ -2,6 +2,8 @@ package eu.fizzystuff.krog.ui
 
 import com.google.common.base.Joiner
 import com.google.common.base.Splitter
+import com.google.common.collect.ImmutableList
+import java.util.*
 
 class MessageBuffer {
     private var messages: MutableList<String> = mutableListOf()
@@ -10,10 +12,20 @@ class MessageBuffer {
         messages.add(message)
     }
 
-    fun printAndFlush(maxLength: Int): Iterator<String> {
-        val joinedMessages = Joiner.on(" ").join(messages)
-        messages = mutableListOf()
-        return Splitter.fixedLength(maxLength).split(joinedMessages).iterator()
+    fun poll(): String {
+        val listBuilder = ImmutableList.builder<String>()
+
+        while (listBuilder.build().fold(0, { totalLength, str -> totalLength + str.length + 1 }) < 80 && messages.size > 0) {
+            listBuilder.add(messages.get(0))
+            messages.removeAt(0)
+        }
+
+        val oversizedOutput = Joiner.on(" ").join(listBuilder.build())
+        if (oversizedOutput.length > 80) {
+            messages.add(0, oversizedOutput.substring(80))
+        }
+
+        return oversizedOutput.substring(0, Math.min(oversizedOutput.length, 80))
     }
 
     fun size(): Int {
@@ -21,7 +33,7 @@ class MessageBuffer {
                 (if(messages.size > 0) messages.size - 1 else 0)
     }
 
-    companion object MessageBuffer {
-        val instance = MessageBuffer()
+    fun clear() {
+        messages = mutableListOf()
     }
 }

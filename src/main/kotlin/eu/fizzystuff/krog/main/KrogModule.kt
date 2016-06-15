@@ -6,6 +6,7 @@ import com.googlecode.lanterna.screen.Screen
 import com.googlecode.lanterna.screen.TerminalScreen
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory
 import com.googlecode.lanterna.terminal.Terminal
+import eu.fizzystuff.krog.scenes.aspects.MainMapDrawingComponent
 import eu.fizzystuff.krog.scenes.visibility.RaycastingVisibilityStrategy
 import eu.fizzystuff.krog.scenes.visibility.VisibilityStrategy
 import eu.fizzystuff.krog.ui.MessageBuffer
@@ -24,6 +25,7 @@ class KrogModule : AbstractModule() {
         screen.startScreen()
 
         bind(AbstractScreen::class.java).toInstance(screen)
+        bind(MessageBuffer::class.java).toInstance(MessageBuffer())
         bind(Terminal::class.java).toInstance(terminal)
     }
 }

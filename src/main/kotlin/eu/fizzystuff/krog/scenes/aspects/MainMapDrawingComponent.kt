@@ -1,13 +1,14 @@
 package eu.fizzystuff.krog.scenes.aspects
 
+import com.google.inject.Inject
 import com.googlecode.lanterna.TextCharacter
 import com.googlecode.lanterna.TextColor
 import com.googlecode.lanterna.screen.AbstractScreen
-import eu.fizzystuff.krog.scenes.aspects.DrawingAspect
+import eu.fizzystuff.krog.scenes.aspects.DrawingComponent
 import eu.fizzystuff.krog.model.WorldState
 
-class MainMapDrawingAspect : DrawingAspect {
-    override fun draw(screen: AbstractScreen, x: Int, y: Int) {
+class MainMapDrawingComponent public @Inject constructor(val screen: AbstractScreen) : DrawingComponent {
+    override fun draw(x: Int, y: Int) {
         val dungeonLevel = WorldState.instance.currentDungeonLevel
 
         for (i in 0..dungeonLevel.width - 1) {

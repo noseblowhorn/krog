@@ -1,14 +1,16 @@
 package eu.fizzystuff.krog.scenes.mainscreen.input
 
 import com.google.common.collect.ImmutableSet
+import com.google.inject.Inject
 import com.googlecode.lanterna.input.KeyStroke
 import com.googlecode.lanterna.input.KeyType
 import eu.fizzystuff.krog.scenes.InputNode
 import eu.fizzystuff.krog.scenes.LogicNode
 import eu.fizzystuff.krog.model.PlayerCharacter
 import eu.fizzystuff.krog.model.WorldState
+import eu.fizzystuff.krog.ui.MessageBuffer
 
-class PlayerCharacterMovement : InputNode {
+class PlayerCharacterMovement public @Inject constructor(val messageBuffer: MessageBuffer) : InputNode {
 
     private val MOVE_AP_COST = 400
 
@@ -76,6 +78,10 @@ class PlayerCharacterMovement : InputNode {
         }
 
         val tile = dungeonLevel.getTileAt(x, y)
+
+        if (!tile.traversable) {
+            messageBuffer.addMessage("You flurp into the brumpy goblak")
+        }
 
         return tile.traversable
     }
